@@ -1,0 +1,42 @@
+<div class="card border-primary mb-3">
+    <div class="card-header">Autores </div>
+    <div class="card-body text-primary">
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary type-button" [routerLink]="['autores/form']">Crear Autor</button>
+        </div>
+        <div *ngIf="autores.length == 0" class="alert alert-info">
+            No hay registros en Base de datos
+        </div>
+        <table class="table table-bordered table-striped" *ngIf="autores.length > 0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Nacionalidad</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let autor of autores">
+                    <td> {{autor.id}} </td>
+                    <td> {{autor.nombre}} </td>
+                    <td> {{autor.apellido}} </td>
+                    <td> {{autor.nacionalidad}} </td>
+                    <td> {{autor.fechaNacimiento}} </td>
+
+                    <td>
+                        <button type="button" name="editar" class="btn btn-primary" [routerLink]="['/autores/form', autor.id]" >Editar</button>
+                    </td>
+
+                    <td>
+                        <button type="button" name="eliminar" class="btn btn-danger"  (click)="delete(autor)" >Eliminar</button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
