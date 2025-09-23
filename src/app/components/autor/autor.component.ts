@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Autor } from '../../entitys/autor';
+import { Autor } from '../../models/autor';
 import { AutorService } from '../../services/autor-services/autor.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { response } from 'express';
 @Component({
   selector: 'app-autor',
   templateUrl: './autor.component.html',
-  styleUrl: './autor.component.css'
+  styleUrls: ['./autor.component.css']
 })
 export class AutorComponent implements OnInit {
 
@@ -36,7 +36,7 @@ export class AutorComponent implements OnInit {
           confirmButtonText: 'Si, eliminar'
         }).then((result) => {
           if(result.isConfirmed){
-            this.autorService.delete(autor.id).subscribe(
+            this.autorService.delete(autor.autorId).subscribe(
               response => {
                 this.autores = this.autores.filter(aut => aut !== autor)
                 swal.fire(

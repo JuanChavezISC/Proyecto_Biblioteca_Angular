@@ -21,14 +21,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let autor of autores">
-                    <td> {{autor.id}} </td>
+                    <td> {{autor.autorId}} </td>
                     <td> {{autor.nombre}} </td>
                     <td> {{autor.apellido}} </td>
                     <td> {{autor.nacionalidad}} </td>
                     <td> {{autor.fechaNacimiento}} </td>
 
                     <td>
-                        <button type="button" name="editar" class="btn btn-primary" [routerLink]="['/autores/form', autor.id]" >Editar</button>
+                        <button type="button" name="editar" class="btn btn-primary" [routerLink]="['/autores/form', autor.autorId]" >Editar</button>
                     </td>
 
                     <td>

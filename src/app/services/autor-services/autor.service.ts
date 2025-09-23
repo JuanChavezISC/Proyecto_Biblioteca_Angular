@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Autor } from '../../entitys/autor';
+import { Autor } from '../../models/autor';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class AutorService {
   }
 
   update(autor: Autor): Observable<Autor>{
-    return this.http.put<Autor>(`${this.urlEndPoint}/${autor.id}`, autor, {headers: this.httpHeaders});
+    return this.http.put<Autor>(`${this.urlEndPoint}/${autor.autorId}`, autor, {headers: this.httpHeaders});
   }
 
   delete(id: number): Observable<Autor>{
