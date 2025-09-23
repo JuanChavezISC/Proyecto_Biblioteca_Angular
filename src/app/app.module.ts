@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { AutorComponent } from './components/autor/autor.component';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AutorFormComponent } from './components/autor/autor-form/autor-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     AutorComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    AutorFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()

@@ -36,16 +36,15 @@ export class AutorComponent implements OnInit {
           confirmButtonText: 'Si, eliminar'
         }).then((result) => {
           if(result.isConfirmed){
-            this.autorService.delete(autor.autorId).subscribe(
-              response => {
-                this.autores = this.autores.filter(aut => aut !== autor)
+            this.autorService.delete(autor.autorId).subscribe( () => {
+                this.autores = this.autores.filter(aut => aut !== autor);
                 swal.fire(
                   'Autor eliminado!',
                   `Autor ${autor.nombre} ${autor.apellido} eliminado con exito`,
                   'success'
                 )
-              }
-            )
+              });
+            
           }
         })
       }

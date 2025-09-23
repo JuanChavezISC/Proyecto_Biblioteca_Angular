@@ -8,7 +8,11 @@ import { Autor } from '../../models/autor';
 })
 export class AutorService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/findAllAutors'
+  private urlEndPointFindAll: string = 'http://localhost:8080/api/findAllAutors';
+  private urlEndPointFindById: string = 'http://localhost:8080/api/findAutorById'
+  private urlEndPointSave: string = 'http://localhost:8080/api/saveAutor';
+  private urlEndPointUpdate: string = 'http://localhost:8080/api/updateAutor';
+  private urlEndPointDelete: string = 'http://localhost:8080/api/deleteAutor';
 
   private httpHeaders= new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -16,28 +20,28 @@ export class AutorService {
 
   getAutoresNoPage(): Observable<Autor[]>{
 
-    return this.http.get<Autor[]>(this.urlEndPoint);
+    return this.http.get<Autor[]>(this.urlEndPointFindAll);
   }
 
   getAutores(page: number): Observable<any>{
     console.log("Ingresa a back Autores")
 
-    return this.http.get<Autor[]>(this.urlEndPoint + '/page/' + page);
+    return this.http.get<Autor[]>(this.urlEndPointFindAll + '/page/' + page);
   }
 
   create(autor: Autor): Observable<Autor>{
-    return this.http.post<Autor>(this.urlEndPoint, autor, {headers: this.httpHeaders})
+    return this.http.post<Autor>(this.urlEndPointSave, autor, {headers: this.httpHeaders})
   }
 
   getAutor(id:number): Observable<Autor>{
-    return this.http.get<Autor>(`${this.urlEndPoint}/${id}`);
+    return this.http.get<Autor>(`${this.urlEndPointFindById}/${id}`);
   }
 
   update(autor: Autor): Observable<Autor>{
-    return this.http.put<Autor>(`${this.urlEndPoint}/${autor.autorId}`, autor, {headers: this.httpHeaders});
+    return this.http.put<Autor>(`${this.urlEndPointUpdate}/${autor.autorId}`, autor, {headers: this.httpHeaders});
   }
 
-  delete(id: number): Observable<Autor>{
-    return this.http.delete<Autor>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders});
+  delete(id: number): Observable<void>{
+    return this.http.delete<void>(`${this.urlEndPointDelete}/${id}`, {headers: this.httpHeaders});
   }
 }
