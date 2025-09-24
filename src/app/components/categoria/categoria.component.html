@@ -1,1 +1,40 @@
-<p>categoria works!</p>
+<div class="card border-primary mb-3">
+    <div class="card-header">Categorias</div>
+    <div class="card-body text-primary">
+        
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary type-button" 
+            [routerLink]="['/categorias/form']">Crear Categoria</button>
+        </div>
+
+        <div *ngIf="categorias.length == 0" class="alert alert-info">
+            No hay registros en base de datos
+        </div>
+
+        <table class="table table-bordered table-striped" *ngIf="categorias.length > 0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Descripcion</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let categoria of categorias">
+                    <td> {{categoria.categoriaId}} </td>
+                    <td> {{categoria.descripcion}} </td>
+
+                    <td>
+                        <button type="button" name="editar" class="btn btn-primary"
+                        [routerLink]="['/categorias/form', categoria.categoriaId]">Editar</button>
+                    </td>
+
+                    <td>
+                        <button type="button" name="eliminar" class="btn btn-danger" (click)="delete(categoria)"> Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

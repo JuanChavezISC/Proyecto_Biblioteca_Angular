@@ -4,7 +4,6 @@ import { AutorService } from '../../services/autor-services/autor.service';
 import { ActivatedRoute } from '@angular/router';
 
 import swal from 'sweetalert2';
-import { response } from 'express';
 
 @Component({
   selector: 'app-autor',

@@ -8,13 +8,15 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AutorFormComponent } from './components/autor/autor-form/autor-form.component';
 import { FormsModule } from '@angular/forms';
+import { CategoriaFormComponent } from './components/categoria/categoria-form/categoria-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AutorComponent,
     CategoriaComponent,
-    AutorFormComponent
+    AutorFormComponent,
+    CategoriaFormComponent
   ],
   imports: [
     BrowserModule,
