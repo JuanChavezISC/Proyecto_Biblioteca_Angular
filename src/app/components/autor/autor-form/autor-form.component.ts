@@ -21,15 +21,15 @@ export class AutorFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.cargarAutor();
-
   }
+
   cargarAutor(): void {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.autorService.getAutor(id).subscribe((autor) => this.autor = autor) //nos suscribimos al observable en el servicio
+        this.autorService.getAutor(id)
+        .subscribe((autor) => this.autor = autor) //nos suscribimos al observable en el servicio
       }
       console.log(this.autor);
     })
@@ -50,7 +50,8 @@ export class AutorFormComponent implements OnInit {
     this.autorService.update(this.autor)
     .subscribe(autor =>{
       this.router.navigate(['/autores'])
-      swal.fire('Autor actualizado', `Autor ${this.autor.nombre} actualizado con exito`, 'success')
+      swal.fire('Autor actualizado', `Autor ${this.autor.nombre} actualizado con exito`
+        , 'success')
     })
   }
 }
