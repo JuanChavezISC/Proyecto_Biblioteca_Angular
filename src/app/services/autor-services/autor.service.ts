@@ -28,14 +28,15 @@ export class AutorService {
 
     return this.http.get<Autor[]>(this.urlEndPointFindAll + '/page/' + page);
   }
-
+  
+  getAutor(id:number): Observable<Autor>{
+    return this.http.get<Autor>(`${this.urlEndPointFindById}/${id}`);
+  }
+  
   create(autor: Autor): Observable<Autor>{
     return this.http.post<Autor>(this.urlEndPointSave, autor, {headers: this.httpHeaders})
   }
 
-  getAutor(id:number): Observable<Autor>{
-    return this.http.get<Autor>(`${this.urlEndPointFindById}/${id}`);
-  }
 
   update(autor: Autor): Observable<Autor>{
     return this.http.put<Autor>(`${this.urlEndPointUpdate}/${autor.autorId}`, autor, {headers: this.httpHeaders});
