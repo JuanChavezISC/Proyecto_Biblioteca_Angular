@@ -12,11 +12,32 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Nacionalidad</th>
-                    <th>Fecha Nacimiento</th>
+                    <th>Titulo</th>
+                    <th>isbn</th>
+                    <th>fechaPublicacion</th>
+                    <th>autorId</th>
+                    <th>CategoriaId</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr *ngFor="let libro of libros">
+                    <td> {{libro.libroId}} </td>
+                    <td> {{libro.titulo}} </td>
+                    <td> {{libro.isbn}} </td>
+                    <td> {{libro.fechaPublicacion}} </td>
+                    <td> {{libro.autor.autorId}} </td>
+                    <td> {{libro.categoria.categoriaId}} </td>
+
+                                        <td>
+                        <button type="button" name="editar" class="btn btn-primary" 
+                        [routerLink]="['/libros/form', libro.libroId]" >Editar</button>
+                    </td>
+
+                    <td>
+                        <button type="button" name="eliminar" class="btn btn-danger"  (click)="delete(libro)" >Eliminar</button>
+
+                    </td>
+                </tr>
+            </tbody>
