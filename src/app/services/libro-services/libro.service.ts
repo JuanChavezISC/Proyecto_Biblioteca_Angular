@@ -10,29 +10,25 @@ import { Categoria } from '../../models/categoria';
 })
 export class LibroService {
 
-  private urlEndPointFindAll: string = 'http://localhost:8080/api/findAllBooks';
-  private urlEndPointFindById: string = 'http://localhost:8080/api/findBookById'
-  private urlEndPointSave: string = 'http://localhost:8080/api/saveBook';
-  private urlEndPointUpdate: string = 'http://localhost:8080/api/updateBook';
-  private urlEndPointDelete: string = 'http://localhost:8080/api/deleteBook';
-
+  private urlEndPoint: string = 'http://localhost:8080/api/libros';
   private urlEndPointAutor: string = 'http://localhost:8080/api/findAllAutors';
   private urlEndPointCategoria: string = 'http://localhost:8080/api/findAllCategories';
 
   private httpHeaders= new HttpHeaders({'Content-Type': 'application/json'});
   constructor(private http: HttpClient) { }
 
+  /* Getters de las distintas entidades o modelos */
   getLibrosNoPage(): Observable<Libro[]>{
-    return this.http.get<Libro[]>(this.urlEndPointFindAll);
+    return this.http.get<Libro[]>(this.urlEndPoint);
   }
 
   getLibros(page: number): Observable<any>{
     console.log("Ingresa a back Libros")
-    return this.http.get<Libro[]>(this.urlEndPointFindAll + '/page/' + page);
+    return this.http.get<Libro[]>(this.urlEndPoint + '/page/' + page);
   }
 
   getLibro(id: number): Observable<Libro>{
-    return this.http.get<Libro>(`${this.urlEndPointFindById}/${id}`);
+    return this.http.get<Libro>(`${this.urlEndPoint}/${id}`);
   }
 
   getAutor(): Observable<Autor[]>{
@@ -43,15 +39,17 @@ export class LibroService {
     return this.http.get<Categoria[]>(this.urlEndPointCategoria);
   }
 
+  /* Funciones CRUD */
   create(libro: Libro): Observable<Libro>{
-    return this.http.post<Libro>(this.urlEndPointSave, libro, {headers: this.httpHeaders})
+    return this.http.post<Libro>(this.urlEndPoint, libro, {headers: this.httpHeaders})
   }
 
   update(libro:Libro): Observable<Libro>{
-    return this.http.put<Libro>(`${this.urlEndPointUpdate}/${libro.libroId}`, libro, {headers: this.httpHeaders});
+    return this.http.put<Libro>(`${this.urlEndPoint}/${libro.libroId}`, libro, {headers: this.httpHeaders});
   }
 
   delete(id: number): Observable<void>{
-    return this.http.delete<void>(`${this.urlEndPointDelete}/${id}`, {headers: this.httpHeaders});
+    return this.http.delete<void>(`${this.urlEndPoint
+    }/${id}`, {headers: this.httpHeaders});
   }
 }
