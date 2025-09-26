@@ -3,6 +3,7 @@ import { Autor } from '../../../models/autor';
 import { AutorService } from '../../../services/autor-services/autor.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-autor-form',
@@ -12,15 +13,25 @@ import swal from 'sweetalert2';
 export class AutorFormComponent implements OnInit {
 
   public titulo: string = "Crear Autor";
-  public autor: Autor = new Autor();
+  public autorForm!: FormGroup;
+  public autorId: number = 0;
 
   constructor(
     private autorService: AutorService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+
+    this.autorForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
+      nacionalidad: ['', Validators.required],
+      fechaNacimiento: ['', Validators.required]
+    });
+
     this.cargarAutor();
   }
 
@@ -28,29 +39,48 @@ export class AutorFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       let id = params['id']
       if (id) {
-        this.autorService.getAutor(id)
-        .subscribe((autor) => this.autor = autor) //nos suscribimos al observable en el servicio
+        this.autorId = +id;
+        this.titulo = "Editar Autor";
+        this.autorService.getAutor(this.autorId)
+        .subscribe((autor: Autor) => { //nos suscribimos al observable en el servicio
+          this.autorForm.patchValue({
+            nombre: autor.nombre,
+            nacionalidad: autor.nacionalidad,
+            fechaNacimiento: autor.fechaNacimiento 
+          });
+        }); 
       }
-      console.log(this.autor);
     })
   }
 
   public create(): void {
-    console.log(this.autor);
-    this.autorService.create(this.autor)
-      .subscribe(autor => {
+
+    if (this.autorForm.invalid) return;
+
+    const autor = {
+      ...this.autorForm.value,
+      fechaNacimiento: this.autorForm.value.fechaNacimiento
+    };
+
+    this.autorService.create(autor)
+      .subscribe(()=> {
         this.router.navigate(['/autores'])// indica que se redireccione al componente autores
-        swal.fire('Nuevo autor', `Autor ${this.autor.nombre} creado con exito`, 'success')
+        swal.fire('Nuevo autor', `Autor ${this.autorForm.value.nombre} creado con exito`, 'success')
       }
     );
   }
 
   update(): void{
-    console.log("Autor a editar" + this.autor);
-    this.autorService.update(this.autor)
-    .subscribe(autor =>{
+    console.log("Autor a editar" + this.autorForm.value);
+    
+    if (this.autorForm.invalid) return;
+
+    const autorEditado: Autor = {id: this.autorId, ...this.autorForm.value};
+
+    this.autorService.update(autorEditado)
+    .subscribe(() =>{
       this.router.navigate(['/autores'])
-      swal.fire('Autor actualizado', `Autor ${this.autor.nombre} actualizado con exito`
+      swal.fire('Autor actualizado', `Autor ${this.autorForm.value.nombre} actualizado con exito`
         , 'success')
     })
   }

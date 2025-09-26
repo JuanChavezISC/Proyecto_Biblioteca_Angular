@@ -2,38 +2,83 @@
     <div class="card-header"> {{titulo}} </div>
     <div class="card-body"></div>
 
-    <form >
+    <form [formGroup]="autorForm">
+        <!-- Nombre -->
         <div class="form-group row mb-1">
-            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+            <label for="nombre" class="col-form-label col-sm-2">
+                Nombre
+            </label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="autor.nombre" name="nombre">
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Jhon Doe"/>
+                 <!-- mensajes de error -->
+                  <div *ngIf="autorForm.get('nombre')?.invalid &&
+                            (autorForm.get('nombre')?.dirty ||
+                            autorForm.get('nombre')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="autorForm.get('nombre')?.errors?.['required']">
+                                El nombre es obligatorio
+                            </small>
+                            <small *ngIf="autorForm.get('nombre')?.errors?.['minlength']">
+                                El nombre debe tener al menos 3 caracteres
+                            </small>
+                        
+                    </div>
             </div>
         </div>
+        <!-- Apellido -->
         <div class="form-group row mb-1">
-            <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+            <label for="apellido" class="col-form-label col-sm-2">
+                Apellido
+            </label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="autor.apellido" name="apellido">
+                <input type="text" class="form-control"  id="apellido" formControlName="apellido" placeholder="example: Jimenez"/>
+                <!-- mensajes de error -->
+                  <div *ngIf="autorForm.get('apellido')?.invalid &&
+                            (autorForm.get('apellido')?.dirty ||
+                            autorForm.get('apellido')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="autorForm.get('apellido')?.errors?.['required']">
+                                El apellido es obligatorio
+                            </small>
+                            <small *ngIf="autorForm.get('apellido')?.errors?.['minlength']">
+                                El apellido debe tener al menos 3 caracteres
+                            </small>
+                        
+                    </div>
             </div>
         </div>
+        <!-- Nacionalidad -->
         <div class="form-group row mb-1">
-            <label for="nacionalidad" class="col-form-label col-sm-2">Nacionalidad</label>
+            <label for="nacionalidad" class="col-form-label col-sm-2">
+                Nacionalidad
+            </label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="autor.nacionalidad" name="nacionalidad">
-            </div>
-        </div>
-        <div class="form-group row mb-1">
-            <label for="fechaNacimiento" class="col-form-label col-sm-2">Fecha Nacimiento</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="autor.fechaNacimiento" name="fechaNacimiento">
+                <input type="text" class="form-control" id="nacionalidad" formControlName="nacionalidad" placeholder="example: Argentina">
             </div>
         </div>
 
-        <div class="form-group row">
+        <!-- Fecha Nacimiento -->
+        <div class="form-group row mb-1">
+            <label for="fechaNacimiento" class="col-form-label col-sm-2">
+                Fecha Nacimiento
+            </label>
             <div class="col-sm-6">
-                <button class="btn btn-primary" role= "button" (click)= 'create()' *ngIf="!autor.autorId else elseBlock"> Crear</button>
+                <input type="date" class="form-control" id="fechaNacimiento" formControlName="fechaNacimiento" placeholder="YYYY-MM">
+            </div>
+        </div>
+
+        <!-- Botones -->
+
+        <div class="form-group row mt-3">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role= "button" (click)= 'create()' *ngIf="autorId === 0; else elseBlock" [disabled] = "autorForm.invalid">
+                     Crear
+                    </button>
 
                 <ng-template #elseBlock>
-                    <button class="btn btn-primary" role="button" (click)= 'update()'>Editar</button>
+                    <button class="btn btn-warning" role="button" (click)= 'update()' [disabled]="autorForm.invalid">
+                        Editar
+                    </button>
                 </ng-template>
             </div>
         </div>
