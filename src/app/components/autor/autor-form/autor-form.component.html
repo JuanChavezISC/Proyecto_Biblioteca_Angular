@@ -54,6 +54,18 @@
             </label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" id="nacionalidad" formControlName="nacionalidad" placeholder="example: Argentina">
+                <!-- mensajes de error -->
+                  <div *ngIf="autorForm.get('nacionalidad')?.invalid &&
+                            (autorForm.get('nacionalidad')?.dirty ||
+                            autorForm.get('nacionalidad')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="autorForm.get('nacionalidad')?.errors?.['required']">
+                                La nacionalidad es obligatoria
+                            </small>
+                            <small *ngIf="autorForm.get('nacionalidad')?.errors?.['minlength']">
+                                La nacionalidad debe tener al menos 3 caracteres
+                            </small>
+                    </div>
             </div>
         </div>
 

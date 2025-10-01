@@ -4,18 +4,34 @@
 
     <form>
         <div class="form-group row mb-1">
-            <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
+            <label for="descripcion" class="col-form-label col-sm-2">
+                Descripcion
+            </label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="categoria.descripcion" name="descripcion">
+                <input type="text" class="form-control"  id="descripcion" formControlName="descripcion" placeholder="tag">
+                <!-- mensajes de error -->
+                 <div *ngIf="categoriaForm.get('descripcion')?.invalid &&
+                 (categoriaForm.get('descripcion')?.dirty ||
+                 categoriaForm.get('descripcion')?.touched)"
+                 class="text-danger mt-1">
+                 <small *ngIf="categoriaForm.get('descripcion')?.errors?.['required']">
+                    La descripcion es obligatoria
+                 </small>
+                 <small *ngIf="categoriaForm.get('descripcion')?.errors?.['minlength']">
+                    La descripcion debe tener al menos 3 caracteres
+                 </small>
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-sm-6">
-                <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!categoria.categoriaId else elseBlock"> Crear</button>
+                <button class="btn btn-primary" role="button" (click)='create()' *ngIf="categoriaId === 0; else elseBlock" [disabled]="categoriaForm.invalid">
+                     Crear
+                    </button>
 
                 <ng-template #elseBlock>
-                    <button class="btn btn-primary" role="button" (click)='update()'> Editar</button>
+                    <button class="btn btn-primary" role="button" (click)='update()' [disabled]="categoriaForm.invalid"> Editar</button>
                 </ng-template>
             </div>
         </div>

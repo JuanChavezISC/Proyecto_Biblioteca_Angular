@@ -28,7 +28,7 @@ export class AutorFormComponent implements OnInit {
     this.autorForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       apellido: ['', [Validators.required, Validators.minLength(3)]],
-      nacionalidad: ['', Validators.required],
+      nacionalidad: ['', [Validators.required, Validators.minLength(3)]],
       fechaNacimiento: ['', Validators.required]
     });
 
