@@ -70,7 +70,7 @@ export class CategoriaFormComponent implements OnInit {
 
     if (this.categoriaForm.invalid) return;
     
-    const categoriaEditada: Categoria = {id: this.categoriaId, ...this.categoriaForm.value};
+    const categoriaEditada: Categoria = {categoriaId: this.categoriaId, ...this.categoriaForm.value};
 
     this.categoriaService.update(categoriaEditada)
     .subscribe(() =>{

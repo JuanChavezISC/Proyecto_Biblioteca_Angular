@@ -45,6 +45,7 @@ export class AutorFormComponent implements OnInit {
         .subscribe((autor: Autor) => { //nos suscribimos al observable en el servicio
           this.autorForm.patchValue({
             nombre: autor.nombre,
+            apellido: autor.apellido,
             nacionalidad: autor.nacionalidad,
             fechaNacimiento: autor.fechaNacimiento 
           });
@@ -75,7 +76,7 @@ export class AutorFormComponent implements OnInit {
     
     if (this.autorForm.invalid) return;
 
-    const autorEditado: Autor = {id: this.autorId, ...this.autorForm.value};
+    const autorEditado: Autor = {autorId: this.autorId, ...this.autorForm.value};
 
     this.autorService.update(autorEditado)
     .subscribe(() =>{
