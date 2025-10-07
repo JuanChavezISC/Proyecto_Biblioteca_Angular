@@ -5,6 +5,7 @@ import { AutorFormComponent } from './components/autor/autor-form/autor-form.com
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { CategoriaFormComponent } from './components/categoria/categoria-form/categoria-form.component';
 import { LibroComponent } from './components/libro/libro.component';
+import { LibroFormComponent } from './components/libro/libro-form/libro-form.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/autores', pathMatch: 'full'},
@@ -18,6 +19,8 @@ const routes: Routes = [
   {path: 'categorias/form/:id', component: CategoriaFormComponent},
   /*Libro Path */
   {path: 'libros', component:LibroComponent},
+  {path: 'libros/form', component:LibroFormComponent},
+  {path: 'libros/form/:id', component:LibroFormComponent},
 ];
 
 @NgModule({

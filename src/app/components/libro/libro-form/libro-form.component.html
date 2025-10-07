@@ -1,1 +1,133 @@
-<p>libro-form works!</p>
+<div class="card bg-dark text-white">
+
+    <div class="card-header"> {{titulo}} </div>
+    <div class="card-body"></div>
+    <form [formGroup]="libroForm">
+        <!--Titulo-->
+        <div class="form-group row mb-1">
+            <label for="titulo" class="col-form-label col-sm-2">
+                Titulo
+            </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="titulo" formControlName="titulo" placeholder="el principito">
+                <!--mensaje de error-->
+                <div *ngIf="libroForm.get('titulo')?.invalid && 
+                        (libroForm.get('titulo')?.dirty ||
+                        libroForm.get('titulo')?.touched)"
+                        class="text-danger mt-1">
+                    <small *ngIf="libroForm.get('titulo')?.errors?.['required']">
+                        El titulo es obligatorio
+                    </small>
+                    <small *ngIf="libroForm.get('titulo')?.errors?.['minlength']">
+                        El titulo debe tener al menos 3 caracteres
+                    </small>
+                </div>
+            </div>
+        </div>
+
+                <!--isbn-->
+        <div class="form-group row mb-1">
+            <label for="isbn" class="col-form-label col-sm-2">
+                ISBN
+            </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="isbn" formControlName="isbn" placeholder="900-000000000" maxlength="14">
+                <!--mensaje de error-->
+                <div *ngIf="libroForm.get('isbn')?.invalid && 
+                        (libroForm.get('isbn')?.dirty ||
+                        libroForm.get('isbn')?.touched)"
+                        class="text-danger mt-1">
+                    <small *ngIf="libroForm.get('isbn')?.errors?.['required']">
+                        El isbn es obligatorio
+                    </small>
+                    <small *ngIf="libroForm.get('isbn')?.errors?.['minlength']">
+                        El isbn debe contar con 13 digitos
+                    </small>
+                    <small *ngIf="libroForm.get('isbn')?.errors?.['maxlength']">
+                        El isbn no puede exceder los 13 digitos 
+                    </small>
+                </div>
+            </div>
+        </div>
+
+                <!--Fecha Publicacion-->
+        <div class="form-group row mb-1">
+            <label for="fechaPublicacion" class="col-form-label col-sm-2">
+                Fecha Publicacion
+            </label>
+            <div class="col-sm-6">
+                <input type="date" class="form-control" id="fechaPublicacion" 
+                    formControlName="fechaPublicacion" placeholder="YYYY-MM-DD">
+                <!--mensaje de error-->
+                <div *ngIf="libroForm.get('fechaPublicacion')?.invalid && 
+                        (libroForm.get('fechaPublicacion')?.dirty ||
+                        libroForm.get('fechaPublicacion')?.touched)"
+                        class="text-danger mt-1">
+                    <small *ngIf="libroForm.get('fechaPublicacion')?.errors?.['required']">
+                        La fecha es obligatoria
+                    </small>
+                    <small *ngIf="libroForm.get('fechaPublicacion')?.errors?.['fechaFutura']">
+                        La fecha no puede ser futura
+                    </small>
+                </div>
+            </div>
+        </div>
+
+                <!--Autor-->
+        <div class="form-group row mb-1">
+            <label for="autor" class="col-form-label col-sm-2">
+                Autor
+            </label>
+            <div class="col-sm-6">
+                <select class="form-select" id="autor" formControlName="autor" [compareWith]="compararAutor">
+                    <option [ngValue]="null">Seleccione un autor</option>
+                    <option *ngFor="let autor of autores" [ngValue]="autor.autorId"> {{autor.nombre}} {{autor.apellido}} </option>
+                </select>
+                <!--mensaje de error-->
+                <div *ngIf="libroForm.get('autor')?.invalid && 
+                        libroForm.get('autor')?.touched"
+                        class="text-danger mt-1">
+                    <small *ngIf="libroForm.get('autor')?.errors?.['required']">
+                        Debe seleccionar un autor
+                    </small>
+                </div>
+            </div>
+        </div>
+
+                <!--Categoria-->
+        <div class="form-group row mb-1">
+            <label for="categoria" class="col-form-label col-sm-2">
+                Categoria
+            </label>
+            <div class="col-sm-6">
+                <select class="form-select" id="categoria" formControlName="categoria" [compareWith]="compararCategoria">
+                    <option [ngValue]="null">Seleccione una categoria</option>
+                    <option *ngFor="let categoria of categorias" [ngValue]="categoria.categoriaId"> {{categoria.descripcion}}</option>
+                </select>
+                <!--mensaje de error-->
+                <div *ngIf="libroForm.get('categoria')?.invalid && 
+                        libroForm.get('categoria')?.touched"
+                        class="text-danger mt-1">
+                    <small *ngIf="libroForm.get('categoria')?.errors?.['required']">
+                        Debe seleccionar una categoria
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-group row mt-3">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role="button" (click)='create()' *ngIf="libroId === 0; else elseBlock" [disabled]="libroForm.invalid">
+                    Crear
+                </button>
+
+                <ng-template #elseBlock>
+                    <button class="btn btn-primary" role="button" (click)='update()'  [disabled]="libroForm.invalid">
+                    Editar
+                </button>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+</div>
