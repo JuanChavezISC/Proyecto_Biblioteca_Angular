@@ -26,7 +26,7 @@ export class LibroComponent implements OnInit {
   delete(libro: Libro): void{
     Swal.fire({
       title: 'Confirmacion',
-          text: `¿Seguro que deseas eliminar el autor: ${libro.titulo}  ?`,
+          text: `¿Seguro que deseas eliminar el libro: ${libro.titulo}  ?`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -35,7 +35,7 @@ export class LibroComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             this.libroService.delete(libro.libroId).subscribe(() =>{
-              this.libros = this.libros.filter(lib => lib !== libro);
+              this.libros = this.libros.filter(lib => lib.libroId !== libro.libroId);
               Swal.fire(
                 'Libro eliminado!',
                 `Libro ${libro.titulo} eliminado con exito`,
