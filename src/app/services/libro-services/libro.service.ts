@@ -31,11 +31,11 @@ export class LibroService {
     return this.http.get<Libro>(`${this.urlEndPoint}/${id}`);
   }
 
-  getAutor(): Observable<Autor[]>{
+  getAutores(): Observable<Autor[]>{
     return this.http.get<Autor[]>(this.urlEndPointAutor);
   }
 
-  getCategoria(): Observable<Categoria[]>{
+  getCategorias(): Observable<Categoria[]>{
     return this.http.get<Categoria[]>(this.urlEndPointCategoria);
   }
 

@@ -15,8 +15,8 @@
                     <th>Titulo</th>
                     <th>isbn</th>
                     <th>fechaPublicacion</th>
-                    <th>autorId</th>
-                    <th>CategoriaId</th>
+                    <th>Autor</th>
+                    <th>Categoria</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -27,8 +27,8 @@
                     <td> {{libro.titulo}} </td>
                     <td> {{libro.isbn}} </td>
                     <td> {{libro.fechaPublicacion}} </td>
-                    <td> {{libro.autor.autorId}} </td>
-                    <td> {{libro.categoria.categoriaId}} </td>
+                    <td> {{libro.autor.nombre}}  {{libro.autor.apellido}}</td>
+                    <td> {{libro.categoria.descripcion}} </td>
 
                                         <td>
                         <button type="button" name="editar" class="btn btn-primary" 

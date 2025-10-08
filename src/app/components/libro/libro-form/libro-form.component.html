@@ -79,9 +79,9 @@
                 Autor
             </label>
             <div class="col-sm-6">
-                <select class="form-select" id="autor" formControlName="autor" >
+                <select class="form-select" id="autor" formControlName="autor"  >
                     <option [ngValue]="null">Seleccione un autor</option>
-                    <option *ngFor="let autor of autores" [ngValue]="autor.autorId">
+                    <option *ngFor="let autor of autores" [ngValue]="autor">
                          {{autor.nombre}} {{autor.apellido}} 
                         </option>
                 </select>
@@ -102,9 +102,10 @@
                 Categoria
             </label>
             <div class="col-sm-6">
-                <select class="form-select" id="categoria" formControlName="categoria" [compareWith]="compararCategoria">
+                <select class="form-select" id="categoria" formControlName="categoria"  >
                     <option [ngValue]="null">Seleccione una categoria</option>
-                    <option *ngFor="let categoria of categorias" [ngValue]="categoria.categoriaId"> {{categoria.descripcion}}</option>
+                    <option *ngFor="let categoria of categorias" [ngValue]="categoria">
+                         {{categoria.descripcion}}</option>
                 </select>
                 <!--mensaje de error-->
                 <div *ngIf="libroForm.get('categoria')?.invalid && 

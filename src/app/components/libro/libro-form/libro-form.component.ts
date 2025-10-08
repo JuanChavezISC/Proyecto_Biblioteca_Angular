@@ -21,8 +21,8 @@ export class LibroFormComponent implements OnInit {
   public libroForm!: FormGroup;
   public libroId: number = 0;
 
-  public autores: Autor[] = [];
-  public categorias: Categoria[] = [];
+  autores: Autor[] = [];
+  categorias: Categoria[] = [];
 
   constructor(
     private libroService: LibroService,
@@ -43,9 +43,13 @@ export class LibroFormComponent implements OnInit {
         categoria: [null, [Validators.required]]
       });
 
-      this.cargarAutores();
-      this.cargarCategorias();
       this.cargarLibro();
+
+      this.libroService.getAutores()
+      .subscribe(autor => this.autores = autor);
+
+      this.libroService.getCategorias()
+      .subscribe(categoria => this.categorias = categoria)
   }
 
   cargarAutores(): void{
@@ -82,14 +86,15 @@ export class LibroFormComponent implements OnInit {
     const libro = {
       ...this.libroForm.value,
       fechaPublicacion: this.libroForm.value.fechaPublicacion,
-      autor: {autorId: this.libroForm.value.autor},
-      categoria: {categoriaId: this.libroForm.value.categoria}
+      autorId: this.libroForm.value.autor.autorId,
+      categoriaId: this.libroForm.value.categoria.categoriaId
     };
 
-    this.libroService.create(libro)
-    .subscribe(() =>{
+    console.log("Libro a enviar", libro);
+
+    this.libroService.create(libro).subscribe(() =>{
       this.router.navigate(['/libros']) // Redireccion al componente libros
-      Swal.fire('Nuevo Libro', `Libro ${this.libroForm.value.titulo} creado con exito`, 'success')
+      Swal.fire('Nuevo Libro', `Libro ${libro.titulo} creado con exito`, 'success')
     });
   }
   
@@ -109,10 +114,16 @@ export class LibroFormComponent implements OnInit {
   }
 
   compararAutor(a1: Autor, a2: Autor): boolean {
-    return a1 && a2 ? a1.autorId === a2.autorId:  a1 === a2;
+    if (a1 === undefined && a2 ===undefined) {
+      return true;
+    }
+    return a1 == null || a2 === null ? false: a1.autorId === a2.autorId;
   }
 
   compararCategoria(c1: Categoria, c2: Categoria): boolean {
-    return c1 && c2 ? c1.categoriaId === c2.categoriaId: c1 === c2;
+    if (c1 === undefined && c2 ===undefined) {
+      return true;
+    }
+    return c1 == null || c2 === null ? false: c1.categoriaId === c2.categoriaId;
   }
 }
