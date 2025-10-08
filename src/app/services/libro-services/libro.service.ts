@@ -11,8 +11,8 @@ import { Categoria } from '../../models/categoria';
 export class LibroService {
 
   private urlEndPoint: string = 'http://localhost:8080/api/libros';
-  private urlEndPointAutor: string = 'http://localhost:8080/api/findAllAutors';
-  private urlEndPointCategoria: string = 'http://localhost:8080/api/findAllCategories';
+  private urlEndPointAutor: string = 'http://localhost:8080/api/autores';
+  private urlEndPointCategoria: string = 'http://localhost:8080/api/categorias';
 
   private httpHeaders= new HttpHeaders({'Content-Type': 'application/json'});
   constructor(private http: HttpClient) { }
