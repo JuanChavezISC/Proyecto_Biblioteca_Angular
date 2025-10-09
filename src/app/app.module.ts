@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaFormComponent } from './components/categoria/categoria-form/categoria-form.component';
 import { LibroComponent } from './components/libro/libro.component';
 import { LibroFormComponent } from './components/libro/libro-form/libro-form.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { UsuarioFormComponent } from './components/usuario/usuario-form/usuario-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { LibroFormComponent } from './components/libro/libro-form/libro-form.com
     AutorFormComponent,
     CategoriaFormComponent,
     LibroComponent,
-    LibroFormComponent
+    LibroFormComponent,
+    UsuarioComponent,
+    UsuarioFormComponent
   ],
   imports: [
     BrowserModule,
