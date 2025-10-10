@@ -108,6 +108,8 @@ export class LibroFormComponent implements OnInit {
 
     this.libroService.update(libroEditado)
     .subscribe(()=>{
+          console.log("Libro a enviar", libroEditado);
+
       this.router.navigate(['/libros'])
       Swal.fire('Libro Actualizado', `Libro ${this.libroForm.value.titulo} actualizado con exito`
         , 'success')
