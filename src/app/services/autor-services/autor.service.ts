@@ -31,7 +31,7 @@ export class AutorService {
   }
   
   create(autor: Autor): Observable<Autor>{
-    return this.http.post<Autor>(this.urlEndPoint, autor, {headers: this.httpHeaders})
+    return this.http.post<Autor>(this.urlEndPoint, autor, {headers: this.httpHeaders});
   }
 
 

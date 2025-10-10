@@ -43,14 +43,15 @@ export class LibroFormComponent implements OnInit {
         categoria: [null, [Validators.required]]
       });
 
-      this.cargarLibro();
-
+      
       this.libroService.getAutores()
       .subscribe(autor => this.autores = autor);
-
+      
       this.libroService.getCategorias()
       .subscribe(categoria => this.categorias = categoria)
-  }
+      
+      this.cargarLibro();
+    }
 
   cargarAutores(): void{
     this.autorService.getAutoresNoPage().subscribe((data) => this.autores = data);
