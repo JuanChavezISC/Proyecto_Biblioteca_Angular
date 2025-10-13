@@ -27,7 +27,7 @@ export class UsuarioFormComponent implements OnInit{
       this.usuarioForm = this.fb.group({
         nombre: ['', [Validators.required, Validators.minLength(3)]],
         apellido: ['', [Validators.required, Validators.minLength(3)]],
-        email: ['', [Validators.required, Validators.email]]
+        email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]]
       });
 
       this.cargarUsuario();

@@ -62,7 +62,7 @@
                             <small *ngIf="usuarioForm.get('email')?.errors?.['required']">
                                 El email es obligatorio
                             </small>
-                            <small *ngIf="usuarioForm.get('email')?.errors?.['email']">
+                            <small *ngIf="usuarioForm.get('email')?.errors?.['pattern']">
                                  El formato del correo no es válido 
                             </small>
                     </div>
