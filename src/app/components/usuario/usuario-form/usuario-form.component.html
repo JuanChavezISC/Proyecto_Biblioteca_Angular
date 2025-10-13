@@ -1,1 +1,88 @@
-<p>usuario-form works!</p>
+<div class="card bg-dark text-white">
+    
+    <div class="card-header"> {{titulo}} </div>
+    <div class="card-body"></div>
+    <form [formGroup]="usuarioForm">
+        <!-- Nombre -->
+        <div class="form-group row mb-1">
+            <label for="nombre" class="col-form-label col-sm-2">
+                Nombre
+            </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Jonathan"/>
+                 <!-- mensajes de error -->
+                  <div *ngIf="usuarioForm.get('nombre')?.invalid &&
+                            (usuarioForm.get('nombre')?.dirty ||
+                            usuarioForm.get('nombre')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="usuarioForm.get('nombre')?.errors?.['required']">
+                                El nombre es obligatorio
+                            </small>
+                            <small *ngIf="usuarioForm.get('nombre')?.errors?.['minlength']">
+                                El nombre debe tener al menos 3 caracteres
+                            </small>
+                        
+                    </div>
+            </div>
+        </div>
+        <!-- Apellido -->
+        <div class="form-group row mb-1">
+            <label for="apellido" class="col-form-label col-sm-2">
+                Apellido
+            </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  id="apellido" formControlName="apellido" placeholder="example: Jimenez"/>
+                <!-- mensajes de error -->
+                  <div *ngIf="usuarioForm.get('apellido')?.invalid &&
+                            (usuarioForm.get('apellido')?.dirty ||
+                            usuarioForm.get('apellido')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="usuarioForm.get('apellido')?.errors?.['required']">
+                                El apellido es obligatorio
+                            </small>
+                            <small *ngIf="usuarioForm.get('apellido')?.errors?.['minlength']">
+                                El apellido debe tener al menos 3 caracteres
+                            </small>
+                        
+                    </div>
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="form-group row mb-1">
+            <label for="email" class="col-form-label col-sm-2">
+                Email
+            </label>
+            <div class="col-sm-6">
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="example: jhon@example.com">
+                <!-- mensajes de error -->
+                  <div *ngIf="usuarioForm.get('email')?.invalid &&
+                            (usuarioForm.get('email')?.dirty ||
+                            usuarioForm.get('email')?.touched)"
+                            class="text-danger mt-1">
+                            <small *ngIf="usuarioForm.get('email')?.errors?.['required']">
+                                El email es obligatorio
+                            </small>
+                            <small *ngIf="usuarioForm.get('email')?.errors?.['email']">
+                                 El formato del correo no es válido 
+                            </small>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Botones -->
+
+        <div class="form-group row mt-3">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role= "button" (click)= 'create()' *ngIf="usuarioId === 0; else elseBlock" [disabled] = "usuarioForm.invalid">
+                     Crear
+                    </button>
+
+                <ng-template #elseBlock>
+                    <button class="btn btn-warning" role="button" (click)= 'update()' [disabled]="usuarioForm.invalid">
+                        Editar
+                    </button>
+                </ng-template>
+            </div>
+        </div>
+    </form>
+</div>

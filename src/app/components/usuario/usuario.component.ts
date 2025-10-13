@@ -33,7 +33,7 @@ export class UsuarioComponent implements OnInit{
           }).then((result) => {
             if (result.isConfirmed) {
               this.usuarioService.delete(usuario.usuarioId).subscribe(() =>{
-                this.usuarios = this.usuarios.filter(usr => usr.usuarioId !== usuario.usuarioId);
+                this.usuarios = this.usuarios.filter(usr => usr !== usuario);
                 Swal.fire(
                   'Usuario eliminado!',
                   `Usuario ${usuario.nombre} eliminado con exito`,
